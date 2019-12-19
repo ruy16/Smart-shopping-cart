@@ -1,0 +1,25 @@
+Project3 implementation.
+Abstraction:
+#The driver class will create a cart object that is initialized by reading the input file cars.txt.This is the user level interface.
+#A Cart<Cars> class that uses a IndexMinPQ data structure to perform all the required operations{Add(car),update(car), removeCar(VIN), retriveLowPrice()@this will use the lowPrice PQ@ , retriveLowMileage()@this will use the lowMileage PQ@,retriveBymakeNmodelLowPrice()@this will make use of the priceByMpq @, retriveBymakeNmodelLowMileage()@ make use of the mileageByMpq }A hash map will also be created to provide constant lookup for the index of a car. THIS IS THE HIGH LEVEL ABSTRCTION FOR THE CART OBJECT
+#The IndexMinPQ class will be imported from the text book.No significant changes are made.To make sure the car objects can be compared by price or mileage using IndexMinPQ, two separate car classes that are the exactly same except for their comparable implementation.So if the implementation for retrieve price will use carP object and retrieve mileage will use carM object.This doesn’t affect the overall runtime, the runtime for  insert, delete-the-minimum, delete still remains logarithmic in the worst case.However we will one additional space for every single car object.2n will be the space complexity where n is the number of cars in this case.But in order to avoid complex editions to the IndexMinPQ and keep those operations logarithmic, it’s worthwhile since it saves a lot of engineering effort and doesn’t affect overall run time.Whenever a carP(PricePQ) object is created, a duplicate carM(MileagePQ) must be created, whenever changes are made to CarP,CarM must stay in synch. This is the lowest level abstraction.
+
+Function details
+#For initializing the cart by reading the input file, two temporary ArrayLists will be needed to collect all the created cars objects, one for CarP and one for CarM.After reading in the file, it iterates through each element in the ArrayList and add it to the cart object with each element's index.This operation is O(n). 
+#For adding a new car, a new carP and carM object will be created and added to pricePQ and mileagePQ respectively using IndexMinPQ.insert() which takes logarithmic time.o(log)
+#For removing a exiting car, the hashMap will give us the index the vinNumber associated with and then both carP and carM will be removed from pricePQ and mileagePQ respectively using IndexMinPQ.delete() which takes logarithmic time.0(1)+o(log)
+#For retrieving the lowest price car or lowest mileage, simply call IndexMinPQ.minKey() which returns the lowest price/mileage car object.This takes constant time.o(1)
+#For retrieving the lowest price by make and model, we can essentially create a another hashMap that maps every distinct make and model to a unique Priority Queue that contains all the same make and models. Every time we need to find something based on make and model, we can use the hashMap to find the corresponding Priority Queue and use PQ.mindKey() to retrieve the lowest value desired.In the worst case we will have a o(1) for the hashMap lookup and a o(1) retrieval.Overall we can achieve o(1).However, space will be a major compromise here, we can't guarantee the makes and models will be limited to certain numbers, so in the worst case we will have to make a new priority queue every time a new make and model is added.
+#For retrieving the lowest mileage by make and model, the implementation is the same as explained above.O(1)
+
+We need to make sure that add(),remove(),retrieveMin() don’t exceed O(log), so I believe by trying to lower the complexity of comparing car objects helps get close to the run-time in IndexMinPQ.
+I think for retrieving the lowest price/mileage car, constant time can be achieved simply by calling min-Key(),which is o(1), method in IndexMinPQ since there is no need for removal of the object.
+All run-time considerations are done in the worst case.
+
+#A note about HashMap.The HashMap performance generally rely on the way the input is presented and the way hash code is implemented.In this case, the input size will always be the number of cars.
+<<<<<<< HEAD
+Java.util.HashMap's implementation provides constant-time performance for the basic operations (get and put), assuming the hash function disperses the elements properly among the buckets.
+=======
+Java.util.HashMap's implementation provides constant-time performance for the basic operations (get and put), assuming the hash function disperses the elements properly among the buckets.
+
+>>>>>>> f68adc700492886ddbbfc5941ed7fe61abe18b5f

@@ -1,0 +1,22 @@
+Project3 plan
+#The driver class will create a cart object that is initialized by reading the input file cars.txt.This is the user level interface.
+
+#A Cart<Cars> class that uses a IndexMinPQ data structure to perform all the required operations{Add(car),update(car), removeCar(VIN), retriveLowPrice()@this will use the lowPrice PQ@ , retriveLowMileage()@this will use the lowMileage PQ@,retriveBymakeNmodelLowPrice()@this will make use of the lowPrice PQ but removes unrelated cars by make and model@, retriveBymakeNmodelLowMileage()@ make use of the lowMileage PQ but removes unrelated cars by make and model } THIS IS THE HIGH LEVEL ABSTRCION FOR THE CART OBJECT
+
+#The IndexMinPQ class will be imported from the book, it will be overrided as appropriate.THIS IS THE CORE.
+
+#A Car class will be used to make a Car object, it has two comparetor operations.This is the lowest level.
+
+!Issues:can't implement mutiple comparators for Car object!
+if we were able to have two different comparetors on the Car object, we will just insert Car Objects into the IndexMinPQ.
+How to store the car objects in the heap, how should be mapping work.---SOLVED
+
+Log1:
+solved the above issue by making two car classes with the only difference of the comparble method.
+Whenever a carP(PricePQ) object is created, a duplicate carM(MileagePQ) must be created, whenever changes are made to CarP,CarM must stay in sychc.
+
+Add(), Update(),remove() is working properly now.
+Protential issue: the Cart size is hard-coded to 100 due the implementation of the Priority Queue.
+
+Log2:
+Finished testing, so far so good.
